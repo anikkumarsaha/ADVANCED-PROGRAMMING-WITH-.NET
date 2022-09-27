@@ -64,6 +64,7 @@ namespace WebApplication1.Controllers
             //return Redirect("https://www.aiub.edu");
             TempData["msg"] = "Redirected from student/profile";
             return RedirectToAction("About", "Home");
+            //return RedirectToAction("Index");
         }
 
         public ActionResult Contact()
