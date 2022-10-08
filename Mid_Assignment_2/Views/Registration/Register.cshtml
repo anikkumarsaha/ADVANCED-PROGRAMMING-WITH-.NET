@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+<form action="" method="post">
+
+    Name: <input type="text" class="form-control" placeholder="Enter your name" value="@(Model ==null ? "" : Model.Name)" name="Name" />
+    @Html.ValidationMessage("Name") <br />
+
+    ID: <input type="text" class="form-control" placeholder="Enter your ID" value="@(Model ==null ? "" : Model.ID)" name="ID" />
+    @Html.ValidationMessage("ID") <br />
+
+    Gender: <input type="radio" name="Gender" value="Male" /> Male
+    <input type="radio" name="Gender" value="Female" /> Female <br />
+    @Html.ValidationMessage("Gender") <br />
+
+    Email: <input type="email" class="form-control" placeholder="Enter your email" value="@(Model ==null ? "" : Model.Email)" name="Email" />
+    @Html.ValidationMessage("Email") <br />
+
+    Password: <input type="password" class="form-control" name="Password" />
+    @Html.ValidationMessage("Password") <br />
+    Confirm Password: <input type="password" class="form-control" name="Confirm_Password" />
+    @Html.ValidationMessage("Confirm_Password") <br />
+
+    DOB: <input type="date" class="form-control" value="@(Model ==null ? "" : Model.DOB)" name="DOB" />
+    @Html.ValidationMessage("DOB") <br />
+
+    <input type="submit" class="btn-block btn-primary" name="Submit" value="Sign up" />
+
+</form>
+
