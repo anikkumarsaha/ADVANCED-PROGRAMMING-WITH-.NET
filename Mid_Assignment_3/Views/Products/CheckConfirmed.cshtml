@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "CheckConfirmed";
+}
+
+<h2>CheckConfirmed</h2>
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td>Name</td>
+        <td>Price</td>
+        <td>Quantity</td>
+    </tr>
+
+    @foreach (var pt in Model)
+    {
+        <tr>
+            <td>@pt.Name</td>
+            <td>@pt.Price</td>
+            <td>@pt.Quantity</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Check";
+}
+
+<h2>Check</h2>
+
+<form action="" method="post">
+    <table class="table table-bordered text-center">
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Quantity</td>
+        </tr>
+        @foreach (var p in Model)
+        {
+    <tr>
+        <td><input type="text" name="Id[]" value="@p.Id" class="form-control" placeholder="Id" /></td>
+        <td><input type="text" name="Name" value="@p.Name" class="form-control" placeholder="Name" /></td>
+        <td><input type="text" name="Price" value="@p.Price" class="form-control" placeholder="Price" /></td>
+        <td><input type="text" name="Quantity" value="@p.Quantity" class="form-control" placeholder="Quantity" /></td>
+    </tr>
+        }
+        <input type="submit" value="Confirm Order" />
+    </table>
+</form>

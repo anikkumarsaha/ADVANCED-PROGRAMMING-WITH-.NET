@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "AddToCart";
+}
+
+<h2>AddToCart</h2>
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td>Name</td>
+        <td>Price</td>
+        <td>Operation</td>
+    </tr>
+
+    @foreach (var pt in Model)
+    {
+        <tr>
+            <td>@pt.Name</td>
+            <td>@pt.Price</td>
+            <td><a href="/Products/Cart/@pt.Id" class="btn btn-info">Add to Cart</a></td>
+        </tr>
+    }
+    <a href="/Products/Check" class="btn btn-info">Check Cart List</a>
+    <a href="/Products/CheckConfirmed" class="btn btn-info">Check Confirmed List</a>
+</table>
