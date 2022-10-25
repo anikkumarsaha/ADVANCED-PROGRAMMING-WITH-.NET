@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Courses">
       <EntityTypeMapping TypeName="MidAssignment4Model.Cours">
         <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="StCount" ColumnName="StCount" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="PreReq" ColumnName="PreReq" />
@@ -28,6 +29,15 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Cgpa" ColumnName="Cgpa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Semesters">
+      <EntityTypeMapping TypeName="MidAssignment4Model.Semester">
+        <MappingFragment StoreEntitySet="Semesters">
+          <ScalarProperty Name="CsCount" ColumnName="CsCount" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

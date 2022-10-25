@@ -10,6 +10,8 @@
         <EntityTypeShape EntityType="MidAssignment4Model.Student" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="MidAssignment4Model.FK_CourseStudents_Courses" ManuallyRouted="false" />
         <AssociationConnector Association="MidAssignment4Model.FK_CourseStudents_Students" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MidAssignment4Model.Semester" Width="1.5" PointX="3" PointY="5.5" />
+        <AssociationConnector Association="MidAssignment4Model.FK_Semesters_Students" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

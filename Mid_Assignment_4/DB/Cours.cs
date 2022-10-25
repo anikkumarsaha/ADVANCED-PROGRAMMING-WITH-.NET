@@ -22,6 +22,7 @@ namespace Mid_Assignment_4.DB
         public int Id { get; set; }
         public string Name { get; set; }
         public int PreReq { get; set; }
+        public int StCount { get; set; }
     
         public virtual ICollection<CourseStudent> CourseStudents { get; set; }
     }

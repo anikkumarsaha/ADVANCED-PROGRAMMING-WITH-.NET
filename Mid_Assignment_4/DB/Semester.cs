@@ -12,16 +12,12 @@ namespace Mid_Assignment_4.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseStudent
+    public partial class Semester
     {
         public int Id { get; set; }
         public int StudentId { get; set; }
-        public int CourseId { get; set; }
-        public string Status { get; set; }
-        public string Grade { get; set; }
-        public Nullable<double> Marks { get; set; }
+        public int CsCount { get; set; }
     
-        public virtual Cours Cours { get; set; }
         public virtual Student Student { get; set; }
     }
 }

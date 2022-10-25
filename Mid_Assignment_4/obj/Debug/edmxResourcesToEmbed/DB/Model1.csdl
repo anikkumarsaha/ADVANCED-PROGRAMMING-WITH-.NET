@@ -8,6 +8,7 @@
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="PreReq" Type="Int32" Nullable="false" />
     <NavigationProperty Name="CourseStudents" Relationship="Self.FK_CourseStudents_Courses" FromRole="Courses" ToRole="CourseStudents" />
+    <Property Name="StCount" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="CourseStudent">
     <Key>
@@ -17,8 +18,8 @@
     <Property Name="StudentId" Type="Int32" Nullable="false" />
     <Property Name="CourseId" Type="Int32" Nullable="false" />
     <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Marks" Type="Double" Nullable="false" />
+    <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Marks" Type="Double" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_CourseStudents_Courses" FromRole="CourseStudents" ToRole="Courses" />
     <NavigationProperty Name="Student" Relationship="Self.FK_CourseStudents_Students" FromRole="CourseStudents" ToRole="Students" />
   </EntityType>
@@ -30,6 +31,7 @@
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Cgpa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="CourseStudents" Relationship="Self.FK_CourseStudents_Students" FromRole="Students" ToRole="CourseStudents" />
+    <NavigationProperty Name="Semesters" Relationship="MidAssignment4Model.FK_Semesters_Students" FromRole="Student" ToRole="Semester" />
   </EntityType>
   <Association Name="FK_CourseStudents_Courses">
     <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
@@ -67,5 +69,31 @@
       <End Role="Students" EntitySet="Students" />
       <End Role="CourseStudents" EntitySet="CourseStudents" />
     </AssociationSet>
+    <EntitySet Name="Semesters" EntityType="MidAssignment4Model.Semester" />
+    <AssociationSet Name="FK_Semesters_Students" Association="MidAssignment4Model.FK_Semesters_Students">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Semester" EntitySet="Semesters" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Semester">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="CsCount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Student" Relationship="MidAssignment4Model.FK_Semesters_Students" FromRole="Semester" ToRole="Student" />
+  </EntityType>
+  <Association Name="FK_Semesters_Students">
+    <End Type="MidAssignment4Model.Student" Role="Student" Multiplicity="1" />
+    <End Type="MidAssignment4Model.Semester" Role="Semester" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Semester">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

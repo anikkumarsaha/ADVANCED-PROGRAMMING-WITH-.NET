@@ -98,12 +98,12 @@ namespace Mid_Assignment_4.Controllers
             {
                 foreach (var studentTakenCourse in mapTable)
                 {
-                    if(c.Id == studentTakenCourse.CourseId && (studentTakenCourse.Grade == "W" || studentTakenCourse.Marks < 60))
+                    if(c.Id == studentTakenCourse.CourseId && (studentTakenCourse.Grade == "W" || studentTakenCourse.Marks < 60) && c.StCount < 40)
                     {
                         courseList.Add(c);
                         break;
                     }
-                    else if(c.PreReq == studentTakenCourse.CourseId && studentTakenCourse.Status == "Complete")
+                    else if(c.PreReq == studentTakenCourse.CourseId && studentTakenCourse.Status == "Complete" && c.StCount < 40)
                     {
                         courseList.Add(c);
                         break;
@@ -115,19 +115,34 @@ namespace Mid_Assignment_4.Controllers
         [HttpPost]
         public ActionResult PreRegistration(int[] courses)
         {
+            //Console.Write(courses.Length);
+
             var db = new MidAssignment4Entities1();
-            foreach (var id in courses)
+
+            if(courses.Length < 6)
             {
-                db.CourseStudents.Add(new CourseStudent()
+                foreach (var id in courses)
                 {
-                    CourseId = id,
-                    StudentId = 1,
-                    Status = "Enrolled",
-                    Grade = "N/A",
-                    Marks = 420
-                });
+                    db.CourseStudents.Add(new CourseStudent()
+                    {
+                        CourseId = id,
+                        StudentId = 1,
+                        Status = "Enrolled",
+                        Grade = "N/A",
+                        Marks = 420
+                    });
+
+                    var ext = (from cs in db.Courses
+                               where cs.Id == id
+                               select cs).SingleOrDefault();
+                    ext.StCount = ext.StCount + 1;
+                    db.SaveChanges();
+                }
+                db.SaveChanges();
+                return RedirectToAction("PreRegistration");
             }
-            db.SaveChanges();
+
+            TempData["msg"] = "Can not take more than 5 courses";
             return RedirectToAction("PreRegistration");
         }
     }

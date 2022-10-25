@@ -10,6 +10,11 @@
 <br />
 <br />
 
+@if (TempData["msg"] != null)
+{
+    @TempData["msg"]
+}
+
 <form action="" method="post">
     <table class="table table-bordered text-center">
         <tr class="bg-info">
@@ -19,7 +24,7 @@
         @foreach (var cs in Model)
         {
             <tr>
-                <td><input type="checkbox" name="Courses[]" value="@cs.Id" class="form-control" /> @cs.Name</td>
+                <td><input type="checkbox" name="Courses[]" value="@cs.Id" class="form-control" /> @cs.Name | @cs.StCount</td>
             </tr>
         }
     </table>

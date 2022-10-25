@@ -17,6 +17,7 @@ namespace Mid_Assignment_4.DB
         public Student()
         {
             this.CourseStudents = new HashSet<CourseStudent>();
+            this.Semesters = new HashSet<Semester>();
         }
     
         public int Id { get; set; }
@@ -24,5 +25,6 @@ namespace Mid_Assignment_4.DB
         public string Cgpa { get; set; }
     
         public virtual ICollection<CourseStudent> CourseStudents { get; set; }
+        public virtual ICollection<Semester> Semesters { get; set; }
     }
 }

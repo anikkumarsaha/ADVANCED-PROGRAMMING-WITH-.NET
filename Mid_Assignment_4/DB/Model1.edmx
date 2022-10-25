@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MidAssignment4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MidAssignment4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Courses">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,6 +12,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PreReq" Type="int" Nullable="false" />
+          <Property Name="StCount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseStudents">
           <Key>
@@ -21,8 +22,16 @@
           <Property Name="StudentId" Type="int" Nullable="false" />
           <Property Name="CourseId" Type="int" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Grade" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Marks" Type="float" Nullable="false" />
+          <Property Name="Grade" Type="varchar" MaxLength="50" />
+          <Property Name="Marks" Type="float" />
+        </EntityType>
+        <EntityType Name="Semesters">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="CsCount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Students">
           <Key>
@@ -56,9 +65,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Semesters_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="Semesters" Type="Self.Semesters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Semesters">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MidAssignment4ModelStoreContainer">
           <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseStudents" EntityType="Self.CourseStudents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Semesters" EntityType="Self.Semesters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CourseStudents_Courses" Association="Self.FK_CourseStudents_Courses">
             <End Role="Courses" EntitySet="Courses" />
@@ -68,9 +90,12 @@
             <End Role="Students" EntitySet="Students" />
             <End Role="CourseStudents" EntitySet="CourseStudents" />
           </AssociationSet>
+          <AssociationSet Name="FK_Semesters_Students" Association="Self.FK_Semesters_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Semesters" EntitySet="Semesters" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MidAssignment4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -82,6 +107,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PreReq" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CourseStudents" Relationship="Self.FK_CourseStudents_Courses" FromRole="Courses" ToRole="CourseStudents" />
+          <Property Name="StCount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseStudent">
           <Key>
@@ -91,8 +117,8 @@
           <Property Name="StudentId" Type="Int32" Nullable="false" />
           <Property Name="CourseId" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Marks" Type="Double" Nullable="false" />
+          <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Marks" Type="Double" />
           <NavigationProperty Name="Cours" Relationship="Self.FK_CourseStudents_Courses" FromRole="CourseStudents" ToRole="Courses" />
           <NavigationProperty Name="Student" Relationship="Self.FK_CourseStudents_Students" FromRole="CourseStudents" ToRole="Students" />
         </EntityType>
@@ -104,6 +130,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Cgpa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CourseStudents" Relationship="Self.FK_CourseStudents_Students" FromRole="Students" ToRole="CourseStudents" />
+          <NavigationProperty Name="Semesters" Relationship="MidAssignment4Model.FK_Semesters_Students" FromRole="Student" ToRole="Semester" />
         </EntityType>
         <Association Name="FK_CourseStudents_Courses">
           <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
@@ -141,7 +168,33 @@
             <End Role="Students" EntitySet="Students" />
             <End Role="CourseStudents" EntitySet="CourseStudents" />
           </AssociationSet>
+          <EntitySet Name="Semesters" EntityType="MidAssignment4Model.Semester" />
+          <AssociationSet Name="FK_Semesters_Students" Association="MidAssignment4Model.FK_Semesters_Students">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Semester" EntitySet="Semesters" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Semester">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="CsCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="MidAssignment4Model.FK_Semesters_Students" FromRole="Semester" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Semesters_Students">
+          <End Type="MidAssignment4Model.Student" Role="Student" Multiplicity="1" />
+          <End Type="MidAssignment4Model.Semester" Role="Semester" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Semester">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -151,6 +204,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="MidAssignment4Model.Cours">
               <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="StCount" ColumnName="StCount" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PreReq" ColumnName="PreReq" />
@@ -175,6 +229,15 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Cgpa" ColumnName="Cgpa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Semesters">
+            <EntityTypeMapping TypeName="MidAssignment4Model.Semester">
+              <MappingFragment StoreEntitySet="Semesters">
+                <ScalarProperty Name="CsCount" ColumnName="CsCount" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

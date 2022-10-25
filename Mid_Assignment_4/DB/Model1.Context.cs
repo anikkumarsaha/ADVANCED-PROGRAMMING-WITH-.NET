@@ -28,5 +28,6 @@ namespace Mid_Assignment_4.DB
         public DbSet<Cours> Courses { get; set; }
         public DbSet<CourseStudent> CourseStudents { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
     }
 }
