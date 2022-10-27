@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<br />
+<a href="/Pharmacy/AddMedicine" class="btn btn-info">Add Medicines</a>
+<br />
+<br />
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td>Name</td>
+        <td colspan="3">Operations</td>
+    </tr>
+
+    @foreach (var cs in Model)
+    {
+        <tr>
+            <td>@cs.Name</td>
+            <td><a href="/Pharmacy/ShowDetails/@cs.Id" class="btn btn-success">Show Details</a></td>
+            <td><a href="/Pharmacy/AddGroup/@cs.Id" class="btn btn-primary">Add Group</a></td>
+            <td><a href="/Pharmacy/AddSupplier/@cs.Id" class="btn btn-warning">Add Supplier</a></td>
+        </tr>
+    }
+</table>

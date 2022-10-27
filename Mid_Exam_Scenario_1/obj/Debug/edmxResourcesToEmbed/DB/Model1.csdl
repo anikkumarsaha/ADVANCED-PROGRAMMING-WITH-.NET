@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MidExamScenario1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Medicines" Relationship="Self.FK_Medicines_Groups" FromRole="Groups" ToRole="Medicines" />
+  </EntityType>
+  <EntityType Name="Medicine">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="GroupId" Type="Int32" />
+    <NavigationProperty Name="Group" Relationship="Self.FK_Medicines_Groups" FromRole="Medicines" ToRole="Groups" />
+    <NavigationProperty Name="MedicineSuppliers" Relationship="Self.FK_MedicineSuppliers_Medicines" FromRole="Medicines" ToRole="MedicineSuppliers" />
+  </EntityType>
+  <EntityType Name="MedicineSupplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MedId" Type="Int32" Nullable="false" />
+    <Property Name="SupId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Medicine" Relationship="Self.FK_MedicineSuppliers_Medicines" FromRole="MedicineSuppliers" ToRole="Medicines" />
+    <NavigationProperty Name="Supplier" Relationship="Self.FK_MedicineSuppliers_Suppliers" FromRole="MedicineSuppliers" ToRole="Suppliers" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="MedicineSuppliers" Relationship="Self.FK_MedicineSuppliers_Suppliers" FromRole="Suppliers" ToRole="MedicineSuppliers" />
+  </EntityType>
+  <Association Name="FK_Medicines_Groups">
+    <End Role="Groups" Type="Self.Group" Multiplicity="0..1" />
+    <End Role="Medicines" Type="Self.Medicine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Medicines">
+        <PropertyRef Name="GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MedicineSuppliers_Medicines">
+    <End Role="Medicines" Type="Self.Medicine" Multiplicity="1" />
+    <End Role="MedicineSuppliers" Type="Self.MedicineSupplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicines">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MedicineSuppliers">
+        <PropertyRef Name="MedId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MedicineSuppliers_Suppliers">
+    <End Role="Suppliers" Type="Self.Supplier" Multiplicity="1" />
+    <End Role="MedicineSuppliers" Type="Self.MedicineSupplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MedicineSuppliers">
+        <PropertyRef Name="SupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MidExamScenario1Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Groups" EntityType="Self.Group" />
+    <EntitySet Name="Medicines" EntityType="Self.Medicine" />
+    <EntitySet Name="MedicineSuppliers" EntityType="Self.MedicineSupplier" />
+    <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+    <AssociationSet Name="FK_Medicines_Groups" Association="Self.FK_Medicines_Groups">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Medicines" EntitySet="Medicines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MedicineSuppliers_Medicines" Association="Self.FK_MedicineSuppliers_Medicines">
+      <End Role="Medicines" EntitySet="Medicines" />
+      <End Role="MedicineSuppliers" EntitySet="MedicineSuppliers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MedicineSuppliers_Suppliers" Association="Self.FK_MedicineSuppliers_Suppliers">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="MedicineSuppliers" EntitySet="MedicineSuppliers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

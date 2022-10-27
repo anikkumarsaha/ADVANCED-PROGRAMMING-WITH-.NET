@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "AddGroup";
+}
+
+<h2>AddGroup</h2>
+<br />
+<a href="/Pharmacy/AddNewGroup" class="btn btn-primary">Add New Group</a>
+<br />
+<br />
+
+<form action="" method="post">
+
+    @foreach (var item in Model)
+    {
+        <input type="radio" name="Name" value="@item.Name" /> @item.Name <br />
+    }
+    <br />
+    <input type="submit" class="btn btn-info" value="Confirm" />
+</form>

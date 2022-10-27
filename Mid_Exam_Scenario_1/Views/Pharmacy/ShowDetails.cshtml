@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "ShowDetails";
+}
+
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td><h2>Medicine name</h2></td>
+    </tr>
+    <tr>
+        <td><h3>@Model.Name</h3></td>
+    </tr>
+</table>
+
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td><h2>Group name</h2></td>
+    </tr>
+    <tr>
+        <td><h3>@Model.Group.Name</h3></td>
+    </tr>
+</table>
+
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td><h2>Supplier name</h2></td>
+    </tr>
+    <tr>
+        <td>
+            @foreach (var item in Model.MedicineSuppliers)
+            {
+                <h3>@item.Supplier.Name</h3>
+            }
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f13d001676fd42138f2f3142414a27fd" Name="Diagram1">
+        <EntityTypeShape EntityType="MidExamScenario1Model.Group" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MidExamScenario1Model.Medicine" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MidExamScenario1Model.MedicineSupplier" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MidExamScenario1Model.Supplier" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="MidExamScenario1Model.FK_Medicines_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="MidExamScenario1Model.FK_MedicineSuppliers_Medicines" ManuallyRouted="false" />
+        <AssociationConnector Association="MidExamScenario1Model.FK_MedicineSuppliers_Suppliers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
