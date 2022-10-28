@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<br />
+<a href="/ProjectManagement/ProjectList" class="btn btn-info">See Project List</a>
+<br /><br />
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td>Supervisor Names</td>
+        <td>Operation</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td><a href="/ProjectManagement/CreateProject/@item.Id" class="btn btn-info">Create New Project</a></td>
+        </tr>
+    }
+</table>

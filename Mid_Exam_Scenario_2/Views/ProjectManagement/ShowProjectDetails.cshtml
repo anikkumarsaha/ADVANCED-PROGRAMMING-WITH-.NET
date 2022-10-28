@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "ShowProjectDetails";
+}
+
+<h2>ShowProjectDetails</h2>
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td><h2>Project name</h2></td>
+    </tr>
+    <tr>
+        <td><h3>@Model.Name</h3></td>
+    </tr>
+</table>
+
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td><h2>Supervisor name</h2></td>
+    </tr>
+    <tr>
+        <td><h3>@Model.Supervisor.Name</h3></td>
+    </tr>
+</table>
+
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td><h2>Member names</h2></td>
+    </tr>
+    <tr>
+        <td>
+            @foreach (var item in Model.ProjectMembers)
+            {
+                <h3>@item.Member.Name</h3>
+            }
+        </td>
+    </tr>
+</table>

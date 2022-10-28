@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "AddMembers";
+}
+
+<h2>AddMembers</h2>
+
+@if (TempData["msg"] != null)
+{
+    @TempData["msg"]
+}
+
+<form action="" method="post">
+    <table class="table table-bordered text-center">
+        <tr class="bg-info">
+            <td>Member Names</td>
+        </tr>
+
+        @foreach (var cs in Model)
+        {
+            <tr>
+                <td><input type="checkbox" name="Members[]" value="@cs.Id" class="form-control" /> @cs.Name</td>
+            </tr>
+        }
+    </table>
+    <input type="submit" value="Add" class="btn btn-success" />
+</form>

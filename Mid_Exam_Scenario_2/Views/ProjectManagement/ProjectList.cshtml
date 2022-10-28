@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "ProjectList";
+}
+
+<h2>ProjectList</h2>
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td>Project Names</td>
+        <td colspan="2">Operation</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td><a href="/ProjectManagement/AddMembers/@item.Id" class="btn btn-info">Add Members</a></td>
+            <td><a href="/ProjectManagement/ShowProjectDetails/@item.Id" class="btn btn-info">Show Details</a></td>
+        </tr>
+    }
+</table>
