@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "AllTasks";
+}
+
+<h2>AllTasks</h2>
+
+<br />
+<a href="/NGO/AssignTask" class="btn btn-warning">Pending Tasks</a>
+<br />
+<br />
+
+@foreach (var item in Model)
+{
+    <h3 class="bg-info">Restaurant Name: @item.Restaurant.Name</h3>
+    <h4>Location: @item.Restaurant.Location</h4>
+    <h4>Status: @item.Status</h4>
+    foreach (var i in item.FoodDetails)
+    {
+        <h4>Food Name: @i.Name</h4>
+        <h4>Food Amount: @i.Amount</h4>
+    }
+    foreach (var j in item.EmployeeCollectRequests)
+    {
+        <h4>Assigned delivery guy: @j.Employee.Name</h4>
+    }
+}

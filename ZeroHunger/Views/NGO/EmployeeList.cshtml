@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "EmployeeList";
+}
+
+<h2>EmployeeList</h2>
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td>Name</td>
+        <td>Location</td>
+        <td>Tasks Completed</td>
+    </tr>
+
+    @foreach (var cs in Model)
+    {
+        <tr>
+            <td>@cs.Name</td>
+            <td>@cs.Location</td>
+            <td>@cs.TotalCompletedRequests</td>
+        </tr>
+    }
+</table>
