@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "EmployeeList";
+}
+
+<h2>EmployeeList</h2>
+
+<table width=100%>
+    <tr>
+        <td align="right">
+            <a href="/Accounts/Logout" class="btn btn-danger">Logout</a>
+        </td>
+    </tr>
+</table>
+
+<table class="table table-bordered text-center">
+    <tr class="bg-info">
+        <td>Name</td>
+        <td>Location</td>
+        <td>Tasks Completed</td>
+    </tr>
+
+    @foreach (var cs in Model)
+    {
+        <tr>
+            <td>@cs.Name</td>
+            <td>@cs.Location</td>
+            <td>@cs.TotalCompletedRequests</td>
+        </tr>
+    }
+</table>

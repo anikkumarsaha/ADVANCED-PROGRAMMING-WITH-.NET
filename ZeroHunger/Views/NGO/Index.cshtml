@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<table width=100%>
+    <tr>
+        <td align="right">
+            <a href="/Accounts/Logout" class="btn btn-danger">Logout</a>
+        </td>
+    </tr>
+</table>
+
+<h3 class="bg-info">Organization Name: @Model.Name</h3>
+<h4>Location: @Model.Location</h4>
+<h4>Establishment Date: @Model.EstablishmentDate</h4>
+<h4>Total Employees: @Model.TotalEmployees</h4>
+<h4>Total Completed Requests: @Model.TotalCompletedRequests</h4>
+
+<a href="/NGO/EmployeeList" class="btn btn-success">Employee List</a>
+<a href="/NGO/AddNewEmployee" class="btn btn-warning">Add New Employee</a>
+<a href="/NGO/AssignTask" class="btn btn-success">Assign Task</a>

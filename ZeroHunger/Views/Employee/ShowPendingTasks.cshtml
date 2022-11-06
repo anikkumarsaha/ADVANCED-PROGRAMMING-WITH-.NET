@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "ShowPendingTasks";
+}
+
+<h2>ShowPendingTasks</h2>
+
+<table width=100%>
+    <tr>
+        <td align="right">
+            <a href="/Accounts/Logout" class="btn btn-danger">Logout</a>
+        </td>
+    </tr>
+</table>
+
+<br />
+<a href="/Employee/ShowAssignedTasks/@Session["EmpId"]" class="btn btn-warning">Show All Tasks</a>
+<br />
+<br />
+
+@foreach (var item in Model)
+{
+    <h3 class="bg-info">Restaurant Name: @item.Restaurant.Name</h3>
+    <h4>Location: @item.Restaurant.Location</h4>
+    <h4>Status: @item.Status</h4>
+    foreach (var i in item.FoodDetails)
+    {
+        <h4>Food Name: @i.Name</h4>
+        <h4>Food Amount: @i.Amount</h4>
+    }
+    if (item.EmployeeId != null)
+    {
+        <h4>Assigned delivery guy: @item.Employee.Name</h4>
+    }
+    else
+    {
+        <h4>Assigned delivery guy: Not Assigned</h4>
+    }
+    <a href="/Employee/Complete/@item.Id" class="btn btn-success">Done</a>
+}
