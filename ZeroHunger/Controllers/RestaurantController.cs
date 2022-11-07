@@ -14,7 +14,7 @@ namespace ZeroHunger.Controllers
         public ActionResult AllCollectRequest(int id)
         {
             Session["ResID"] = id;
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var Requests = (from r in db.CollectRequests
                             where r.RestaurantId == id
                             select r).ToList();
@@ -27,7 +27,7 @@ namespace ZeroHunger.Controllers
         public ActionResult PendingCollectRequest()
         {
             var ResId = Int32.Parse(Session["ResId"].ToString());
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var Requests = (from r in db.CollectRequests
                             where r.RestaurantId == ResId && r.Status == "Requested"
                             select r).ToList();
@@ -39,7 +39,7 @@ namespace ZeroHunger.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var ext = (from cs in db.FoodDetails
                        where cs.Id == id
                        select cs).SingleOrDefault();
@@ -48,7 +48,7 @@ namespace ZeroHunger.Controllers
         [HttpPost]
         public ActionResult Edit(FoodDetail c)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var ext = (from cs in db.FoodDetails
                        where cs.Id == c.Id
                        select cs).SingleOrDefault();
@@ -64,7 +64,7 @@ namespace ZeroHunger.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var ext = (from cs in db.FoodDetails
                        where cs.Id == id
                        select cs).SingleOrDefault();
@@ -73,7 +73,7 @@ namespace ZeroHunger.Controllers
         [HttpPost]
         public ActionResult Delete(FoodDetail c)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var ext = (from cs in db.FoodDetails
                        where cs.Id == c.Id
                        select cs).SingleOrDefault();
@@ -99,7 +99,7 @@ namespace ZeroHunger.Controllers
         [HttpPost]
         public ActionResult PlaceNewRequest(FoodDetail cs)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
 
             var ResId = Int32.Parse(Session["ResId"].ToString());
             db.CollectRequests.Add(new CollectRequest()
@@ -107,6 +107,7 @@ namespace ZeroHunger.Controllers
                 Status = "Requested",
                 RestaurantId = ResId,
                 EmployeeId = null,
+                PlacingDate = DateTime.Now,
             });
 
             db.SaveChanges();

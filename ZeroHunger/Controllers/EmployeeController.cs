@@ -13,7 +13,7 @@ namespace ZeroHunger.Controllers
         public ActionResult ShowAssignedTasks(int id)
         {
             Session["EmpId"] = id;
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var tasks = (from t in db.CollectRequests
                          where t.EmployeeId == id
                          select t).ToList();
@@ -25,7 +25,7 @@ namespace ZeroHunger.Controllers
         public ActionResult ShowPendingTasks()
         {
             var id = Int32.Parse(Session["EmpId"].ToString());
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var tasks = (from t in db.CollectRequests
                          where t.EmployeeId == id
                          select t.Id);
@@ -50,7 +50,7 @@ namespace ZeroHunger.Controllers
         [HttpGet]
         public ActionResult Complete(int id)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var ext = (from cs in db.CollectRequests
                        where cs.Id == id
                        select cs).SingleOrDefault();
@@ -59,7 +59,7 @@ namespace ZeroHunger.Controllers
         [HttpPost]
         public ActionResult Complete(CollectRequest c)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var ext = (from cs in db.CollectRequests
                        where cs.Id == c.Id
                        select cs).SingleOrDefault();

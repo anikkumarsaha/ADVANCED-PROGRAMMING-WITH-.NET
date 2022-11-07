@@ -22,6 +22,7 @@
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RestaurantId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" />
+          <Property Name="PlacingDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Employees">
           <Key>
@@ -166,6 +167,7 @@
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RestaurantId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="PlacingDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_CollectRequests_Employees" FromRole="CollectRequests" ToRole="Employees" />
           <NavigationProperty Name="Restaurant" Relationship="Self.FK_CollectRequests_Restaurants" FromRole="CollectRequests" ToRole="Restaurants" />
           <NavigationProperty Name="FoodDetails" Relationship="Self.FK_FoodDetails_CollectRequests" FromRole="CollectRequests" ToRole="FoodDetails" />
@@ -271,7 +273,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ZeroHungerEntities7" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ZeroHungerEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="CollectRequests" EntityType="Self.CollectRequest" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
@@ -301,7 +303,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ZeroHungerModelStoreContainer" CdmEntityContainer="ZeroHungerEntities7">
+        <EntityContainerMapping StorageEntityContainer="ZeroHungerModelStoreContainer" CdmEntityContainer="ZeroHungerEntities">
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="ZeroHungerModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
@@ -319,6 +321,7 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="PlacingDate" ColumnName="PlacingDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

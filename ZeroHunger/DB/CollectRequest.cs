@@ -23,6 +23,7 @@ namespace ZeroHunger.DB
         public string Status { get; set; }
         public int RestaurantId { get; set; }
         public Nullable<int> EmployeeId { get; set; }
+        public Nullable<System.DateTime> PlacingDate { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Restaurant Restaurant { get; set; }

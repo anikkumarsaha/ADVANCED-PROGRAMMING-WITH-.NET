@@ -12,7 +12,7 @@ namespace ZeroHunger.Controllers
         // GET: NGO
         public ActionResult Index()
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             return View(db.NGOs.SingleOrDefault());
         }
 
@@ -26,7 +26,7 @@ namespace ZeroHunger.Controllers
         [HttpPost]
         public ActionResult AddNewEmployee(Employee cs)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             db.Employees.Add(new Employee()
             {
                 Name = cs.Name,
@@ -53,7 +53,7 @@ namespace ZeroHunger.Controllers
 
         public ActionResult EmployeeList()
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             return View(db.Employees.ToList());
         }
 
@@ -61,7 +61,7 @@ namespace ZeroHunger.Controllers
 
         public ActionResult AssignTask()
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var Requests = (from r in db.CollectRequests
                             where r.Status == "Requested"
                             select r).ToList();
@@ -72,7 +72,7 @@ namespace ZeroHunger.Controllers
 
         public ActionResult AllTasks()
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var Requests = db.CollectRequests.ToList();
             return View(Requests);
         }
@@ -82,14 +82,14 @@ namespace ZeroHunger.Controllers
         [HttpGet]
         public ActionResult AssignEmployees(int id)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             Session["CollectReqId"] = id;
             return View(db.Employees.ToList());
         }
         [HttpPost]
         public ActionResult AssignEmployees(int[] Employees)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var collectreqid = Int32.Parse(Session["collectreqid"].ToString());
 
             if(Employees.Length == 1)
@@ -101,7 +101,7 @@ namespace ZeroHunger.Controllers
                 assigned.Status = "Assigned";
                 db.SaveChanges();
 
-                return RedirectToAction("assigntask");
+                return RedirectToAction("AssignTask");
             }
             TempData["msg"] = "Can not assign more than 1 employee";
             return RedirectToAction("AssignEmployees");

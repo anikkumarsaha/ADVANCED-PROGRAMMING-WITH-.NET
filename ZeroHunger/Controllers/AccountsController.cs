@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ZeroHunger.DB;
 
+
 namespace ZeroHunger.Controllers
 {
     public class AccountsController : Controller
@@ -13,12 +14,23 @@ namespace ZeroHunger.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            var db = new ZeroHungerEntities();
+            var allCollectRequests = db.CollectRequests.ToList();
+
+            foreach (var item in allCollectRequests)
+            {
+                if (((TimeSpan)(DateTime.Now - item.PlacingDate)).Days > 3 && item.Status != "Completed")
+                {
+                    item.Status = "Wasted";
+                }
+            }
+            db.SaveChanges();
             return View();
         }
         [HttpPost]
         public ActionResult Index(Account a)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             db.Accounts.Add(new Account()
             {
                 Name = a.Name,
@@ -42,12 +54,23 @@ namespace ZeroHunger.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            var db = new ZeroHungerEntities();
+            var allCollectRequests = db.CollectRequests.ToList();
+
+            foreach (var item in allCollectRequests)
+            {
+                if (((TimeSpan)(DateTime.Now - item.PlacingDate)).Days > 3 && item.Status != "Completed")
+                {
+                    item.Status = "Wasted";
+                }
+            }
+            db.SaveChanges();
             return View();
         }
         [HttpPost]
         public ActionResult Login(Account a)
         {
-            var db = new ZeroHungerEntities7();
+            var db = new ZeroHungerEntities();
             var user = (from u in db.Accounts
                         where u.Name == a.Name && u.Password == a.Password
                         select u).SingleOrDefault();

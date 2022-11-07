@@ -13,10 +13,10 @@ namespace ZeroHunger.DB
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ZeroHungerEntities7 : DbContext
+    public partial class ZeroHungerEntities : DbContext
     {
-        public ZeroHungerEntities7()
-            : base("name=ZeroHungerEntities7")
+        public ZeroHungerEntities()
+            : base("name=ZeroHungerEntities")
         {
         }
     

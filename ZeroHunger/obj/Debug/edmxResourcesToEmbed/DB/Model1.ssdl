@@ -17,6 +17,7 @@
     <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="RestaurantId" Type="int" Nullable="false" />
     <Property Name="EmployeeId" Type="int" />
+    <Property Name="PlacingDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Employees">
     <Key>

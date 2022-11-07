@@ -17,6 +17,7 @@
     <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="RestaurantId" Type="Int32" Nullable="false" />
     <Property Name="EmployeeId" Type="Int32" />
+    <Property Name="PlacingDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_CollectRequests_Employees" FromRole="CollectRequests" ToRole="Employees" />
     <NavigationProperty Name="Restaurant" Relationship="Self.FK_CollectRequests_Restaurants" FromRole="CollectRequests" ToRole="Restaurants" />
     <NavigationProperty Name="FoodDetails" Relationship="Self.FK_FoodDetails_CollectRequests" FromRole="CollectRequests" ToRole="FoodDetails" />
@@ -122,7 +123,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ZeroHungerEntities7" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="ZeroHungerEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Accounts" EntityType="Self.Account" />
     <EntitySet Name="CollectRequests" EntityType="Self.CollectRequest" />
     <EntitySet Name="Employees" EntityType="Self.Employee" />
