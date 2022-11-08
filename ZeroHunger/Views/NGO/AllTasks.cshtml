@@ -23,7 +23,22 @@
     <h3 class="bg-info">Restaurant Name: @item.Restaurant.Name</h3>
     <h4>Location: @item.Restaurant.Location</h4>
     <h4>Requested on: @item.PlacingDate</h4>
-    <h4>Status: @item.Status</h4>
+    if (item.Status == "Completed")
+    {
+        <h4>Status: <span class="text-success">@item.Status</span></h4>
+    }
+    else if (item.Status == "Wasted")
+    {
+        <h4>Status: <span class="text-danger">@item.Status</span></h4>
+    }
+    else if (item.Status == "Requested")
+    {
+        <h4>Status: <span class="text-warning">@item.Status</span></h4>
+    }
+    else if (item.Status == "Assigned")
+    {
+        <h4>Status: <span class="text-primary">@item.Status</span></h4>
+    }
     foreach (var i in item.FoodDetails)
     {
         <h4>Food Name: @i.Name</h4>
