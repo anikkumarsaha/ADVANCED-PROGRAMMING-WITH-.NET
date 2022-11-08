@@ -7,6 +7,7 @@ using ZeroHunger.DB;
 
 namespace ZeroHunger.Controllers
 {
+    [Authorize]
     public class NGOController : Controller
     {
         // GET: NGO

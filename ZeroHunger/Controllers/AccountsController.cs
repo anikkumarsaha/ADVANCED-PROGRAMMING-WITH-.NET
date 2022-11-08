@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ZeroHunger.DB;
 
 
@@ -76,37 +77,42 @@ namespace ZeroHunger.Controllers
                         where u.Name == a.Name && u.Password == a.Password
                         select u).SingleOrDefault();
 
-            if(user.Role == "Restaurant")
+            if(user != null)
             {
-                var AllRestaurants = db.Restaurants.ToList();
+                FormsAuthentication.SetAuthCookie((user.Id).ToString(), true);
 
-                foreach (var item in AllRestaurants)
+                if (user.Role == "Restaurant")
                 {
-                    if (item.Name == user.Name)
+                    var AllRestaurants = db.Restaurants.ToList();
+
+                    foreach (var item in AllRestaurants)
                     {
-                        return RedirectToAction("AllCollectRequest", "Restaurant", new { id = item.Id });
+                        if (item.Name == user.Name)
+                        {
+                            return RedirectToAction("AllCollectRequest", "Restaurant", new { id = item.Id });
+                        }
                     }
                 }
-            }
-            else if(user.Role == "Employee")
-            {
-                var AllEmployees = db.Employees.ToList();
-
-                foreach (var item in AllEmployees)
+                else if (user.Role == "Employee")
                 {
-                    if (item.Name == user.Name)
+                    var AllEmployees = db.Employees.ToList();
+
+                    foreach (var item in AllEmployees)
                     {
-                        return RedirectToAction("ShowAssignedTasks", "Employee", new { id = item.Id });
+                        if (item.Name == user.Name)
+                        {
+                            return RedirectToAction("ShowAssignedTasks", "Employee", new { id = item.Id });
+                        }
                     }
                 }
-            }
-            else if (user.Role == "NGO")
-            {
-                var AllNGO = db.NGOs.SingleOrDefault();
-
-                if (AllNGO.Name == user.Name)
+                else if (user.Role == "NGO")
                 {
-                    return RedirectToAction("Index", "NGO", new { id = AllNGO.Id });
+                    var AllNGO = db.NGOs.SingleOrDefault();
+
+                    if (AllNGO.Name == user.Name)
+                    {
+                        return RedirectToAction("Index", "NGO", new { id = AllNGO.Id });
+                    }
                 }
             }
             return RedirectToAction("Login");
@@ -116,6 +122,7 @@ namespace ZeroHunger.Controllers
 
         public ActionResult Logout()
         {
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
     }
