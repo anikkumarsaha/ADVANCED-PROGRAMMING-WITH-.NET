@@ -82,11 +82,18 @@ namespace ZeroHunger.Controllers
             db.FoodDetails.Remove(ext);
             db.SaveChanges();
 
-            var exxt = (from css in db.CollectRequests
-                        where css.Id == CollId
-                        select css).SingleOrDefault();
-            db.CollectRequests.Remove(exxt);
-            db.SaveChanges();
+            var excol = (from cx in db.FoodDetails
+                         where cx.CollectRequestId == CollId
+                         select cx).FirstOrDefault();
+
+            if(excol == null)
+            {
+                var exxt = (from css in db.CollectRequests
+                            where css.Id == CollId
+                            select css).SingleOrDefault();
+                db.CollectRequests.Remove(exxt);
+                db.SaveChanges();
+            }
             return RedirectToAction("PendingCollectRequest");
         }
 
@@ -98,7 +105,7 @@ namespace ZeroHunger.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PlaceNewRequest(FoodDetail cs)
+        public ActionResult PlaceNewRequest(string[] Name, string[] Amount)
         {
             var db = new ZeroHungerEntities();
 
@@ -114,13 +121,21 @@ namespace ZeroHunger.Controllers
             db.SaveChanges();
 
             var CollectReq = db.CollectRequests.ToList().LastOrDefault();
+            var i = 0;
 
-            db.FoodDetails.Add(new FoodDetail()
+            foreach (var item in Name)
             {
-                Name = cs.Name,
-                Amount = cs.Amount,
-                CollectRequestId = CollectReq.Id,
-            });
+                if(item != "")
+                {
+                    db.FoodDetails.Add(new FoodDetail()
+                    {
+                        Name = item,
+                        Amount = Amount[i],
+                        CollectRequestId = CollectReq.Id,
+                    });
+                }
+                i++;
+            }
             db.SaveChanges();
             return RedirectToAction("AllCollectRequest", new { id = ResId });
         }
